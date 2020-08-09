@@ -1,0 +1,37 @@
+
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image":  "imkiransuvarna/ci_workflow_docker_travis_client",
+            "hostname": "client",
+            "essential": false
+        }, 
+        {
+            "name": "server",
+            "image":  "imkiransuvarna/ci_workflow_docker_travis_server",
+            "hostname": "api",
+            "essential": false
+        },
+        {
+            "name": "worker",
+            "image":  "imkiransuvarna/ci_workflow_docker_travis_worker",
+            "hostname": "worker",
+            "essential": false
+        },
+        {
+            "name": "worker",
+            "image":  "imkiransuvarna/ci_workflow_docker_travis_nginx",
+            "hostname": "nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["client", "server"]
+        }
+    ]
+}
